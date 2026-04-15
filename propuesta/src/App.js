@@ -142,6 +142,19 @@ export default function PrototipoWebComercial() {
           { label: 'Acompañar el proceso de cambio', feedback: 'Entonces este diseño es consistente con el tipo de resultado que busca.' },
         ],
       },
+    },
+    {
+      id: 'P10',
+      title: 'Dirección Académica',
+      subtitle: 'Carlos Albornoz, PhD',
+      body: [
+        'Psicólogo laboral, MBA y doctor en educación de adultos. Se ha especializado en desarrollo de equipos y formación de líderes.',
+        'Con una trayectoria de 20 años dedicados al estudio, la práctica y la investigación sobre cómo los adultos aprenden. Ha diseñado y dirigido programas de entrenamiento en Chile, Alemania y EEUU, trabajando con diversas instituciones como DLab-UDD, la Fundación Luksic, la Unión Europea y la Barbara Bush Foundation en EEUU.',
+        'Ha tenido una inmersión en el mundo del emprendimiento y la gestión de la innovación además de haber coordinado las políticas de capital humano para el Ministerio de Economía chileno.',
+        'Su tesis doctoral en EEUU y sus proyectos Fondecyt en Chile, han contribuido con nuevos enfoques sobre cómo innovar y transferir habilidades al puesto de trabajo. Sus publicaciones académicas superan las 1.000 citas en Google Scholar.',
+      ],
+      audioText:
+        'La dirección académica combina investigación, experiencia internacional y diseño de programas orientados a transferir capacidades reales al puesto de trabajo.',
     }
   ];
 
@@ -325,7 +338,7 @@ export default function PrototipoWebComercial() {
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-slate-300 mb-3">Propuesta preparada por el centro de liderazgo STEC.</div>
                 <h1 className="text-2xl md:text-4xl font-semibold leading-tight max-w-4xl">
-                  Diplomado en Habilidades Directivas para Profesionales - Generadora Metropolitana
+                  Programa de Desarrollo de Ejecutivos. Propuesta elaborada para Generadora Metropolitana.
                 </h1>
 
               </div>
@@ -371,7 +384,15 @@ export default function PrototipoWebComercial() {
 
               <div className="mt-8">
                 <section className="rounded-3xl bg-slate-50 border p-6 md:p-8">
-
+                  {screen.id === 'P01' && (
+                    <div className="mb-8 flex justify-center md:justify-start">
+                      <img
+                        src={`${process.env.PUBLIC_URL}/stec-transparente-color.png`}
+                        alt="Logo Santo Tomas Educacion Continua"
+                        className="h-20 w-auto md:h-24"
+                      />
+                    </div>
+                  )}
                   <div className="space-y-4">
                     {screen.body.map((paragraph, idx) => (
                       <p key={idx} className="text-slate-800 text-lg leading-relaxed">{paragraph}</p>
@@ -401,6 +422,19 @@ export default function PrototipoWebComercial() {
                       <div className="text-slate-700 text-sm leading-relaxed">
                         $1.380.000.- (en base a 35 alumnos inscritos). Incluye dos coffee ejecutivo nivel medio alto, almuerzo, pack de bienvenida, mochila institucional, jornada de cierre en club de campo y coctel de despedida, además de diplomas y acceso a aula virtual por el tiempo que dure el programa.
                       </div>
+                    </div>
+                  )}
+                  {screen.id === 'P10' && (
+                    <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
+                      <div className="text-sm font-semibold mb-2">Contacto</div>
+                      <div className="text-slate-900 font-medium">Giovanna Avila</div>
+                      <div className="text-slate-700 text-sm mt-1">Consultor senior y responsable de esta propuesta</div>
+                      <a
+                        href="mailto:gavila6@santotomas.cl"
+                        className="mt-3 inline-block text-sm text-orange-600 hover:text-orange-700"
+                      >
+                        gavila6@santotomas.cl
+                      </a>
                     </div>
                   )}
                 </section>
