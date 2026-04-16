@@ -7,8 +7,11 @@ export default function PrototipoWebComercial() {
       title: 'Presentación',
       subtitle: '',
       body: [
-        'La mayoría de los programas falla en un punto crítico: no cambia el desempeño.',
-
+        'Muchos programas se conciben implícitamente más como un beneficio laboral que como una herramienta de transformación.',
+        'En STEC estamos impulsando una forma de trabajo que permite al mismo tiempo: certificar aprendizajes académicos, desarrollar capacidades profesionales y transferir esas capacidades a los resultados del negocio.',
+        'La posición de GM en GPTW, manteniéndose en el Top 10 durante seis años consecutivos, entre 2020 y 2026, nos anima a colaborar en este proyecto, que combina el interés de la alta gerencia por construir un programa de calidad con los desarrollos tecnológicos del Centro de Liderazgo STEC.',
+        'Contamos con una alianza con el Center for Positive Leadership, un centro que tiene en su claustro a los creadores del concepto liderazgo positivo. Este diploma está avalado por ese centro y, según la fecha, puede contar con académicos del centro como docentes (disponible solo en inglés).',
+        'Esta propuesta describe lo que podemos hacer juntos:',
       ],
       audioText:
         'La capacitación tradicional suele privilegiar los contenidos. Este programa no busca solo transmitir conceptos, sino ayudar a descubrir cómo y por qué adquirir nuevas capacidades permite vivir mejor.',
@@ -68,6 +71,7 @@ export default function PrototipoWebComercial() {
           { label: 'Confianza (Luhmann)', content: 'Foco: reducción de complejidad y coordinación social. Dinámica: negociación con información incompleta.' },
           { label: 'Trabajo en equipo (Hackman)', content: 'Foco: condiciones para efectividad de equipos. Dinámica: desafío complejo con roles diferenciados.' },
           { label: 'Alto desempeño (Ericsson)', content: 'Foco: práctica deliberada y feedback. Dinámica: entrenamiento intensivo con ciclos de ajuste.' },
+          { label: 'Sesión de Team Building y Titulación', content: 'Entrega de premios y reconocimientos. Opcional: el diploma lo entrega el Decano de la Facultad de Economía y Negocios en la ceremonia de MBAs.' },
         ],
       },
     },
@@ -112,16 +116,16 @@ export default function PrototipoWebComercial() {
     {
       id: 'P06',
       title: 'Aprendizaje integrado al negocio',
-      subtitle: 'Teoría, práctica y conexión estratégica.',
+      subtitle: 'Teoría, práctica y conexión estratégica a partir de las charlas de los altos ejecutivos que participan de cada sesión.',
       body: [],
       audioText:
         'Aquí el aprendizaje no corre por fuera del negocio. Cada módulo vincula modelos, experiencia aplicada e intervención de la alta gerencia para asegurar conexión con la realidad estratégica.',
       interaction: {
         type: 'cards',
         items: [
-          { label: 'Conceptual', content: 'Modelos y casos para ordenar criterio ejecutivo.' },
-          { label: 'Aplicado', content: 'Dinámicas que fuerzan coordinación, decisión y ajuste.' },
-          { label: 'Estratégico', content: 'Participación de líderes para conectar con prioridades reales.' },
+          { label: 'Conceptual', content: 'Modelos y casos para formar criterio ejecutivo, de alto rigor académico, disponibles en un aula virtual especialmente construida para esta cohorte.' },
+          { label: 'Aplicado', content: 'Dinámicas de grupo en cada sesión que fuerzan coordinación, decisión y ajuste. Al final de cada juego o dinámica grupal, cada participante escribe su bitácora, alimentando la plataforma de agentes de IA que entregan guía y retroalimentación, construyendo una rica base de conocimiento para la Gerencia de Personas.' },
+          { label: 'Estratégico', content: 'Participación de líderes para conectar con prioridades reales. Antes de cada charla, los líderes reciben un informe sobre los desafíos y procesos que están viviendo los profesionales.' },
         ],
       },
     },
@@ -338,7 +342,16 @@ export default function PrototipoWebComercial() {
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-slate-300 mb-3">Propuesta preparada por el centro de liderazgo STEC.</div>
                 <h1 className="text-2xl md:text-4xl font-semibold leading-tight max-w-4xl">
-                  Programa de Desarrollo de Ejecutivos. Propuesta elaborada para Generadora Metropolitana.
+                  Programa de Desarrollo de Ejecutivos. Propuesta elaborada para{' '}
+                  <a
+                    href="https://www.generadora.cl/noticias/generadora-metropolitana-es-la-7-mejor-empresa-para-trabajar-en-chile/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-orange-500 hover:text-orange-400"
+                  >
+                    Generadora Metropolitana
+                  </a>
+                  .
                 </h1>
 
               </div>
@@ -377,9 +390,19 @@ export default function PrototipoWebComercial() {
                 <div className="max-w-3xl">
                   <div className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-3">{screen.id}</div>
                   <h2 className="text-2xl md:text-4xl font-semibold leading-tight">{screen.title}</h2>
-                  <p className="text-slate-600 mt-3 text-lg">{screen.subtitle}</p>
+                  <p className={`text-slate-600 mt-3 ${screen.id === 'P10' ? 'text-sm' : 'text-lg'}`}>{screen.subtitle}</p>
+                  {screen.id === 'P10' && (
+                    <a
+                      href="https://dr-carlos-albornoz-1a8w3j6.gamma.site/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-block text-sm text-orange-600 hover:text-orange-700"
+                    >
+                      Revisar el CV del Director Académico
+                    </a>
+                  )}
                 </div>
-
+                
               </div>
 
               <div className="mt-8">
@@ -394,9 +417,43 @@ export default function PrototipoWebComercial() {
                     </div>
                   )}
                   <div className="space-y-4">
-                    {screen.body.map((paragraph, idx) => (
-                      <p key={idx} className="text-slate-800 text-lg leading-relaxed">{paragraph}</p>
-                    ))}
+                    {screen.body.map((paragraph, idx) => {
+                      if (screen.id === 'P01' && idx === 3) {
+                        return (
+                          <p key={idx} className="text-slate-800 text-sm leading-relaxed">
+                            Contamos con una alianza con el{' '}
+                            <a
+                              href="https://positiveleadership.louisville.edu/"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-semibold text-orange-600 hover:text-orange-700"
+                            >
+                              Center for Positive Leadership
+                            </a>
+                            , un centro que tiene en su claustro a los creadores del concepto liderazgo positivo. Este diploma está avalado por ese centro y, según la fecha, puede contar con académicos del centro como docentes (disponible solo en inglés).
+                          </p>
+                        );
+                      }
+
+                      return (
+                        <p
+                          key={idx}
+                          className={`text-slate-800 leading-relaxed ${screen.id === 'P10' || screen.id === 'P01' ? 'text-sm' : 'text-lg'}`}
+                        >
+                          {paragraph}
+                        </p>
+                      );
+                    })}
+                    {screen.id === 'P01' && (
+                      <a
+                        href="https://positiveleadership.louisville.edu/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-block text-sm text-orange-600 hover:text-orange-700"
+                      >
+                        Revisar sitio web del Centro de la Universidad de Louisville, Kentucky, USA
+                      </a>
+                    )}
                   </div>
                   {renderInteraction()}
                   {screen.id === 'P03' && (
@@ -404,8 +461,8 @@ export default function PrototipoWebComercial() {
                       <div className="rounded-2xl border bg-white p-5 shadow-sm">
                         <div className="text-sm font-semibold mb-2">Lugar</div>
                         <div className="text-slate-700 text-sm leading-relaxed">
-                          Auditorio UST Sede Vergara.<br />
-                          <strong>Sesión de cierre: Club de Campo Entel</strong>
+                          Sede Vergara.<br />
+                          <strong>Sesión de cierre: Club de Campo Entel u otro según disponibilidad.</strong>
                         </div>
                       </div>
                       <div className="rounded-2xl border bg-white p-5 shadow-sm">
