@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function PrototipoWebComercial() {
   const screens = [
@@ -169,7 +169,8 @@ export default function PrototipoWebComercial() {
   const [decision, setDecision] = useState('');
 
   const screen = screens[current];
-  const progress = useMemo(() => ((current + 1) / screens.length) * 100, [current]);
+  const progress = ((current + 1) / screens.length) * 100;
+  const isCompactBody = screen.id === 'P10' || screen.id === 'P01';
 
 
 
@@ -189,14 +190,20 @@ export default function PrototipoWebComercial() {
     if (interaction.type === 'compare') {
       return (
         <div className="grid md:grid-cols-2 gap-4 mt-6">
-          <div className="rounded-2xl border bg-white p-5 shadow-sm">
-            <h3 className="text-lg font-semibold mb-3">{interaction.leftTitle}</h3>
-            <ul className="space-y-2 text-sm text-slate-700">
+          <div className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.55)]">
+            <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+              Enfoque tradicional
+            </div>
+            <h3 className="text-lg font-semibold text-slate-900 mb-3">{interaction.leftTitle}</h3>
+            <ul className="space-y-2 text-sm text-slate-600">
               {interaction.leftPoints.map((p, i) => <li key={i}>• {p}</li>)}
             </ul>
           </div>
-          <div className="rounded-2xl border bg-white p-5 shadow-sm">
-            <h3 className="text-lg font-semibold mb-3">{interaction.rightTitle}</h3>
+          <div className="rounded-[28px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-white p-6 shadow-[0_24px_55px_-32px_rgba(234,88,12,0.45)]">
+            <div className="mb-4 inline-flex rounded-full bg-orange-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-orange-700">
+              Propuesta STEC
+            </div>
+            <h3 className="text-lg font-semibold text-slate-900 mb-3">{interaction.rightTitle}</h3>
             <ul className="space-y-2 text-sm text-slate-700">
               {interaction.rightPoints.map((p, i) => <li key={i}>• {p}</li>)}
             </ul>
@@ -208,19 +215,19 @@ export default function PrototipoWebComercial() {
     if (interaction.type === 'tabs') {
       const selected = tabSelections[current] ?? 0;
       return (
-        <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
+        <div className="mt-8 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
           <div className="flex flex-wrap gap-2 mb-4">
             {interaction.items.map((item, idx) => (
               <button
                 key={idx}
                 onClick={() => setTabSelections((s) => ({ ...s, [current]: idx }))}
-                className={`px-4 py-2 rounded-full text-sm border ${selected === idx ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-700 border-slate-300'}`}
+                className={`px-4 py-2 rounded-full text-sm border transition ${selected === idx ? 'bg-orange-500 text-white border-orange-500 shadow-[0_12px_24px_-18px_rgba(249,115,22,0.9)]' : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-orange-200 hover:text-slate-900'}`}
               >
                 {item.label}
               </button>
             ))}
           </div>
-          <div className="text-slate-700 leading-relaxed">{interaction.items[selected].content}</div>
+          <div className="rounded-2xl bg-slate-50 px-5 py-4 text-slate-700 leading-relaxed">{interaction.items[selected].content}</div>
         </div>
       );
     }
@@ -232,15 +239,15 @@ export default function PrototipoWebComercial() {
             const key = `${current}-${idx}`;
             const open = !!openAccordions[key];
             return (
-              <div key={idx} className="rounded-2xl border bg-white shadow-sm overflow-hidden">
+              <div key={idx} className="rounded-[24px] border border-slate-200/80 bg-white shadow-[0_18px_35px_-28px_rgba(15,23,42,0.45)] overflow-hidden">
                 <button
                   onClick={() => setOpenAccordions((s) => ({ ...s, [key]: !open }))}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left"
+                  className="w-full flex items-center justify-between px-5 py-4 text-left transition hover:bg-slate-50"
                 >
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-medium text-slate-900">{item.label}</span>
                   <span className="text-slate-500">{open ? '−' : '+'}</span>
                 </button>
-                {open && <div className="px-5 pb-4 text-slate-700">{item.content}</div>}
+                {open && <div className="px-5 pb-5 text-sm leading-relaxed text-slate-600">{item.content}</div>}
               </div>
             );
           })}
@@ -250,11 +257,12 @@ export default function PrototipoWebComercial() {
 
     if (interaction.type === 'cards') {
       return (
-        <div className="grid md:grid-cols-3 gap-4 mt-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-8">
           {interaction.items.map((item, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="text-sm uppercase tracking-wide text-slate-500 mb-2">{item.label}</div>
-              <div className="text-slate-800 leading-relaxed">{item.content}</div>
+            <div key={idx} className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
+              <div className="mb-4 h-1.5 w-14 rounded-full bg-orange-500" />
+              <div className="text-sm uppercase tracking-[0.18em] text-slate-500 mb-3">{item.label}</div>
+              <div className="text-slate-700 leading-relaxed text-[15px]">{item.content}</div>
             </div>
           ))}
         </div>
@@ -263,12 +271,14 @@ export default function PrototipoWebComercial() {
 
     if (interaction.type === 'timeline') {
       return (
-        <div className="mt-6 grid md:grid-cols-3 gap-4">
+        <div className="mt-8 grid md:grid-cols-3 gap-4">
           {interaction.items.map((item, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-5 shadow-sm relative">
-              
-              <div className="font-semibold mb-2">{item.label}</div>
-              <div className="text-slate-700 text-sm">{item.content}</div>
+            <div key={idx} className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_48px_-34px_rgba(15,23,42,0.45)] relative">
+              <div className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 text-sm font-semibold text-white">
+                {idx + 1}
+              </div>
+              <div className="font-semibold text-slate-900 mb-2">{item.label}</div>
+              <div className="text-slate-600 text-sm leading-relaxed">{item.content}</div>
             </div>
           ))}
         </div>
@@ -277,10 +287,12 @@ export default function PrototipoWebComercial() {
 
     if (interaction.type === 'flow') {
       return (
-        <div className="mt-6 grid md:grid-cols-4 gap-3">
+        <div className="mt-8 grid md:grid-cols-4 gap-3">
           {interaction.items.map((item, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-4 shadow-sm text-sm text-slate-700">
-              <div className="text-xs text-slate-500 mb-2">Paso {idx + 1}</div>
+            <div key={idx} className="rounded-[24px] border border-slate-200/80 bg-white p-5 shadow-[0_18px_35px_-28px_rgba(15,23,42,0.45)] text-sm text-slate-700">
+              <div className="mb-3 inline-flex rounded-full bg-orange-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-700">
+                Paso {idx + 1}
+              </div>
               {item}
             </div>
           ))}
@@ -307,21 +319,21 @@ export default function PrototipoWebComercial() {
     if (interaction.type === 'decision') {
       const selected = interaction.options.find((o) => o.label === decision);
       return (
-        <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
-          <div className="font-semibold mb-4">{interaction.question}</div>
+        <div className="mt-8 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
+          <div className="font-semibold text-slate-900 mb-4">{interaction.question}</div>
           <div className="flex flex-wrap gap-3">
             {interaction.options.map((option, idx) => (
               <button
                 key={idx}
                 onClick={() => setDecision(option.label)}
-                className={`px-4 py-2 rounded-full border text-sm ${decision === option.label ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-700 border-slate-300'}`}
+                className={`px-4 py-2 rounded-full border text-sm transition ${decision === option.label ? 'bg-orange-500 text-white border-orange-500 shadow-[0_12px_24px_-18px_rgba(249,115,22,0.9)]' : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-orange-200'}`}
               >
                 {option.label}
               </button>
             ))}
           </div>
           {selected && (
-            <div className="mt-4 p-4 rounded-xl bg-slate-50 text-slate-700 text-sm">
+            <div className="mt-4 p-4 rounded-2xl bg-orange-50 text-slate-700 text-sm leading-relaxed">
               {selected.feedback}
             </div>
           )}
@@ -333,69 +345,74 @@ export default function PrototipoWebComercial() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-orange-600">
-      <div className="max-w-7xl mx-auto px-4 py-6 md:px-8">
-        <div className="rounded-3xl bg-white shadow-sm border overflow-hidden">
-          <div className="bg-slate-950 text-white px-6 py-8 md:px-8">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#fffaf5_0%,#f8fafc_28%,#f8fafc_100%)] text-slate-900">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-10">
+        <div className="overflow-hidden rounded-[36px] border border-white/70 bg-white/85 shadow-[0_40px_120px_-55px_rgba(15,23,42,0.42)] backdrop-blur">
+          <div className="relative overflow-hidden bg-[linear-gradient(135deg,#0f172a_0%,#172033_56%,#1f2937_100%)] text-white px-6 py-8 md:px-10 md:py-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.22),transparent_28%),radial-gradient(circle_at_left,rgba(255,255,255,0.07),transparent_24%)]" />
+            <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
-                <div className="text-xs uppercase tracking-[0.2em] text-slate-300 mb-3">Propuesta preparada por el centro de liderazgo STEC.</div>
-                <h1 className="text-2xl md:text-4xl font-semibold leading-tight max-w-4xl">
+                <div className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-200">
+                  Propuesta preparada por el Centro de Liderazgo STEC
+                </div>
+                <h1 className="max-w-4xl text-3xl font-semibold leading-tight md:text-5xl">
                   Programa de Desarrollo de Ejecutivos. Propuesta elaborada para{' '}
                   <a
                     href="https://www.generadora.cl/noticias/generadora-metropolitana-es-la-7-mejor-empresa-para-trabajar-en-chile/"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-orange-500 hover:text-orange-400"
+                    className="text-orange-400 hover:text-orange-300"
                   >
                     Generadora Metropolitana
                   </a>
                   .
                 </h1>
-                
+                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-300 md:text-base">
+                  Una presentación comercial diseñada para alinear desarrollo ejecutivo, transferencia al puesto de trabajo y resultados de negocio.
+                </p>
               </div>
-              <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm">
-                <div className="text-slate-300">Pantalla actual</div>
-                <div className="text-xl font-semibold">{screen.id}</div>
+              <div className="rounded-[28px] border border-white/10 bg-white/8 px-5 py-4 text-sm backdrop-blur-sm">
+                <div className="text-[11px] uppercase tracking-[0.24em] text-slate-300">Pantalla actual</div>
+                <div className="mt-2 text-2xl font-semibold">{screen.id}</div>
               </div>
             </div>
-            <div className="mt-6">
-              <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full bg-orange-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+            <div className="relative mt-8">
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-orange-500 transition-all duration-300" style={{ width: `${progress}%` }} />
               </div>
-              <div className="mt-2 text-sm text-slate-300">{current + 1} de {screens.length}</div>
+              <div className="mt-3 text-sm text-slate-300">{current + 1} de {screens.length}</div>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[280px_1fr] gap-0">
-            <aside className="border-r bg-slate-50 p-4 md:p-5">
-              <div className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-4">Navegación</div>
-              <div className="space-y-2">
+          <div className="grid lg:grid-cols-[300px_1fr] gap-0">
+            <aside className="border-r border-slate-200/80 bg-[linear-gradient(180deg,#f8fafc_0%,#fff7ed_100%)] p-5 md:p-6">
+              <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Navegación</div>
+              <div className="space-y-2.5">
                 {screens.map((item, idx) => (
                   <button
                     key={item.id}
                     onClick={() => { setCurrent(idx); }}
-                    className={`w-full text-left rounded-2xl px-4 py-3 border transition ${idx === current ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'}`}
+                    className={`w-full text-left rounded-[24px] px-4 py-3.5 border transition ${idx === current ? 'bg-slate-950 text-white border-slate-950 shadow-[0_20px_40px_-28px_rgba(15,23,42,0.65)]' : 'bg-white/90 text-slate-700 border-slate-200 hover:border-orange-200 hover:shadow-[0_18px_36px_-30px_rgba(15,23,42,0.35)]'}`}
                   >
-                    <div className="text-xs opacity-70">{item.id}</div>
-                    <div className="text-sm font-medium mt-1">{item.title}</div>
+                    <div className={`text-[11px] uppercase tracking-[0.2em] ${idx === current ? 'text-orange-300' : 'text-slate-400'}`}>{item.id}</div>
+                    <div className="mt-1.5 text-sm font-medium leading-snug">{item.title}</div>
                   </button>
                 ))}
               </div>
             </aside>
 
-            <main className="p-5 md:p-8">
+            <main className="p-5 md:p-8 lg:p-10">
               <div className="flex flex-col gap-4">
-                <div className="max-w-3xl">
-                  <div className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-3">{screen.id}</div>
-                  <h2 className="text-2xl md:text-4xl font-semibold leading-tight">{screen.title}</h2>
-                  <p className={`text-slate-600 mt-3 ${screen.id === 'P10' ? 'text-sm' : 'text-lg'}`}>{screen.subtitle}</p>
+                <div className="max-w-4xl">
+                  <div className="mb-3 inline-flex rounded-full bg-orange-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-orange-700">{screen.id}</div>
+                  <h2 className="text-3xl md:text-[2.85rem] font-semibold leading-tight text-slate-950">{screen.title}</h2>
+                  <p className={`mt-4 max-w-3xl text-slate-600 leading-relaxed ${screen.id === 'P10' ? 'text-sm' : 'text-lg'}`}>{screen.subtitle}</p>
                   {screen.id === 'P10' && (
                     <a
                       href="https://dr-carlos-albornoz-1a8w3j6.gamma.site/"
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-3 inline-block text-sm text-orange-600 hover:text-orange-700"
+                      className="mt-4 inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-700 transition hover:border-orange-300 hover:bg-orange-100"
                     >
                       Revisar el CV del Director Académico
                     </a>
@@ -405,13 +422,13 @@ export default function PrototipoWebComercial() {
               </div>
 
               <div className="mt-8">
-                <section className="rounded-3xl bg-slate-50 border p-6 md:p-8">
+                <section className="rounded-[32px] border border-slate-200/80 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 md:p-8 shadow-[0_30px_60px_-42px_rgba(15,23,42,0.35)]">
                   {screen.id === 'P01' && (
-                    <div className="mb-8 flex justify-center md:justify-start">
+                    <div className="mb-6 flex justify-end">
                       <img
                         src={`${process.env.PUBLIC_URL}/stec-transparente-color.png`}
                         alt="Logo Santo Tomas Educacion Continua"
-                        className="h-20 w-auto md:h-24"
+                        className="h-10 w-auto md:h-12"
                       />
                     </div>
                   )}
@@ -419,7 +436,7 @@ export default function PrototipoWebComercial() {
                     {screen.body.map((paragraph, idx) => {
                       if (screen.id === 'P01' && idx === 3) {
                         return (
-                          <p key={idx} className="text-slate-800 text-sm leading-relaxed">
+                          <p key={idx} className="text-slate-700 text-sm leading-7">
                             Contamos con una alianza con el{' '}
                             <a
                               href="https://positiveleadership.louisville.edu/"
@@ -437,7 +454,7 @@ export default function PrototipoWebComercial() {
                       return (
                         <p
                           key={idx}
-                          className={`text-slate-800 leading-relaxed ${screen.id === 'P10' || screen.id === 'P01' ? 'text-sm' : 'text-lg'}`}
+                          className={`leading-relaxed ${isCompactBody ? 'text-sm text-slate-700 leading-7' : 'text-[17px] text-slate-700 md:text-[18px]'}`}
                         >
                           {paragraph}
                         </p>
@@ -448,7 +465,7 @@ export default function PrototipoWebComercial() {
                         href="https://positiveleadership.louisville.edu/"
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-block text-sm text-orange-600 hover:text-orange-700"
+                        className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-700 transition hover:border-orange-300 hover:bg-orange-100"
                       >
                         Revisar sitio web del Centro de la Universidad de Louisville, Kentucky, USA
                       </a>
@@ -457,37 +474,38 @@ export default function PrototipoWebComercial() {
                   {renderInteraction()}
                   {screen.id === 'P03' && (
                     <div className="mt-6 grid md:grid-cols-2 gap-4">
-                      <div className="rounded-2xl border bg-white p-5 shadow-sm">
-                        <div className="text-sm font-semibold mb-2">Lugar</div>
-                        <div className="text-slate-700 text-sm leading-relaxed">
+                      <div className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
+                        <div className="mb-2 text-sm font-semibold text-slate-900">Lugar</div>
+                        <div className="text-slate-600 text-sm leading-relaxed">
                           Sede Vergara.<br />
                           <strong>Sesión de cierre: Club de Campo Entel u otro según disponibilidad.</strong>
                         </div>
                       </div>
-                      <div className="rounded-2xl border bg-white p-5 shadow-sm">
-                        <div className="text-sm font-semibold mb-2">Certificación Formal</div>
-                        <div className="text-slate-700 text-sm leading-relaxed">
+                      <div className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
+                        <div className="mb-2 text-sm font-semibold text-slate-900">Certificación Formal</div>
+                        <div className="text-slate-600 text-sm leading-relaxed">
                           Ofrecemos la posibilidad de obtener un diplomado de 120 horas como parte del mismo programa.
                         </div>
                       </div>
                     </div>
                   )}
                   {screen.id === 'P09' && (
-                    <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
-                      <div className="text-sm font-semibold mb-2">Valor por alumno</div>
+                    <div className="mt-8 rounded-[28px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-white p-6 shadow-[0_24px_50px_-34px_rgba(249,115,22,0.4)]">
+                      <div className="mb-2 text-sm font-semibold text-slate-900">Valor por alumno</div>
                       <div className="text-slate-700 text-sm leading-relaxed">
                         $1.380.000.- (en base a 35 alumnos inscritos). Incluye dos coffee ejecutivo nivel medio alto, almuerzo, pack de bienvenida, mochila institucional, jornada de cierre en club de campo y coctel de despedida, además de diplomas y acceso a aula virtual por el tiempo que dure el programa.
                       </div>
                     </div>
                   )}
                   {screen.id === 'P10' && (
-                    <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
-                      <div className="text-sm font-semibold mb-2">Contacto</div>
-                      <div className="text-slate-900 font-medium">Giovanna Avila</div>
-                      <div className="text-slate-700 text-sm mt-1">Consultor senior y responsable de esta propuesta</div>
+                    <div className="mt-8 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.45)]">
+                      <div className="mb-2 text-sm font-semibold text-slate-900">Contacto</div>
+                      <div className="text-slate-950 font-medium">Giovanna Avila</div>
+                      <div className="text-slate-600 text-sm mt-1">Consultor senior y responsable de esta propuesta</div>
+                      <div className="text-slate-600 text-sm mt-1">+56 9 7823 0703</div>
                       <a
                         href="mailto:gavila6@santotomas.cl"
-                        className="mt-3 inline-block text-sm text-orange-600 hover:text-orange-700"
+                        className="mt-4 inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-700 transition hover:border-orange-300 hover:bg-orange-100"
                       >
                         gavila6@santotomas.cl
                       </a>
@@ -496,11 +514,11 @@ export default function PrototipoWebComercial() {
                 </section>
               </div>
 
-              <div className="flex items-center justify-between gap-4 mt-8">
+              <div className="mt-10 flex items-center justify-between gap-4">
                 <button
                   onClick={prev}
                   disabled={current === 0}
-                  className="px-5 py-3 rounded-2xl border bg-white disabled:opacity-40"
+                  className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 disabled:opacity-40"
                 >
                   Anterior
                 </button>
@@ -508,7 +526,7 @@ export default function PrototipoWebComercial() {
                 <button
                   onClick={next}
                   disabled={current === screens.length - 1}
-                  className="px-5 py-3 rounded-2xl bg-orange-500 text-white disabled:opacity-40"
+                  className="rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-40"
                 >
                   Siguiente
                 </button>
